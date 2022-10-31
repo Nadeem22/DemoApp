@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<h1>Family Registration Form</h1>
+			<br>
+			<p>
+				<a th:href="@{/family/existingFamily}" class="btn btn-primary">Existing
+					Family</a>
+			</p>
+			<h3 th:if="${msg!=null}" style="color: red">
+				<span th:text="${msg}"></span>
+			</h3>
+		</div>
+		<div>
+			<div class="container">
+				<div>
+					<form th:action="@{/family/familyInfo/save}"
+						th:object="${familyInfo}" method="POST">
+						<div class="form-group">
+							<label for="ownerName">Owner Name:</label> <input type="text"
+								class="form-control" id="owner" th:field="*{ownerName}"
+								placeholder="Enter Owner Name" name="ownerName" required>
+							<p>
+								<span th:if="${#fields.hasErrors('ownerName')}"
+									th:errors="*{ownerName}"></span>
+							</p>
+							<p id="ownerValidatiom" style="color: red"></p>
+						</div>
+						<div class="form-group">
+							<label for="flatNumber">Flat No:</label> <input type="text"
+								class="form-control" id="flat" th:field="*{flatNo}"
+								placeholder="Enter Flat Number" name="flatNumber" required>
+							<p>
+								<span th:if="${#fields.hasErrors('flatNo')}"
+									th:errors="*{flatNo}"></span>
+							</p>
+							<p id="faltValidation" style="color: red"></p>
+						</div>
+						<div class="form-group">
+							<label for="noOfMember">No of Member</label> <input
+								class="form-control" id="member" th:field="*{noOfMember}"
+								placeholder="Enter Number of Member" name="noOfMember" required>
+							<p>
+								<span th:if="${#fields.hasErrors('noOfMember')}"
+									th:errors="*{noOfMember}"></span>
+							</p>
+							<p id="memberValidation" style="color: red"></p>
+						</div>
+						<div class="form-group">
+							<label for="ssnNumber">SSN Number</label> <input
+								class="form-control" id="ssn" th:field="*{ssnNumber}"
+								placeholder="Enter SSN number" name="ssnNumber" required>
+							<p>
+								<span th:if="${#fields.hasErrors('ssnNumber')}"
+									th:errors="*{ssnNumber}"></span>
+							</p>
+							<p id="memberValidation" style="color: red"></p>
+						</div>
+						<button type="submit" class="btn btn-primary"
+							onclick="return validateForm()">Submit</button>
+
+
+					</form>
+				</div>
+				<div>
+					<hr>
+				</div>
+				<div>
+					<form class="form-inline" th:action="@{/family/entryExit}" method="POST">
+						<label for="entryExitTime">Entry exit by flat No:</label> <input type="text"
+							class="form-control" id="entryExitTime" placeholder="Enter flat Number"
+							name="flatNumber"> 
+						<input type="submit" class="btn btn-primary m-3" name="entry" value="Entry"/>
+						<input type="submit" class="btn btn-primary m-3" name="exit" value="Exit"/>
+					</form>
+				</div>
+				<div>
+					<hr>
+				</div>
+				<div>
+					<br> <br> <a th:href="@{/home}" class="btn btn-primary">Back</a>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script type="text/javascript">
+
+function validateForm() {
+	  let ownerName = document.getElementById("owner").value;
+	  let flatNumber = document.getElementById("flat").value;
+	  let noOfMember = document.getElementById("member").value;
+	  
+	  if(ownerName == null || ownerName == ""){
+		  document.getElementById("ownerValidatiom").innerHTML = "Name should contain minmum 3 and max 20 charecter";
+		  return false;
+	  }else if(ownerName.length < 3 || ownerName.length > 20){
+		  document.getElementById("ownerValidatiom").innerHTML = "Name should contain minmum 3 and max 20 charecter";
+		  return false;
+	  } else if(flatNumber.length < 2 || flatNumber.length > 5){
+		  document.getElementById("faltValidation").innerHTML = "flat number shoud be minimum 3 and maximum 5 charecter";
+		  return false;
+	  }else if(noOfMember == '0'){
+		  document.getElementById("memberValidation").innerHTML = "Member Shoud be minimum 1 and should be in number";
+		  return false;
+	  }else if(isNaN(noOfMember)){
+		  document.getElementById("memberValidation").innerHTML = "Member Shoud be minimum 1 and should be in number";
+		  return false;
+	  }else{
+		  return true;
+	  }
+	}
+</script>
+
+</html>

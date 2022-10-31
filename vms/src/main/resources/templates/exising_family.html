@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Visitor Management System</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+	crossorigin="anonymous">
+</head>
+<body>
+	<div class="container">
+		<div>
+			<h3>List of Existing Families</h3>
+		</div>
+		<div class="row">
+			<table class="table table-striped table-bordered">
+				<thead>
+					<tr>
+						<th>Owner Name</th>
+						<th>Flat No</th>
+						<th>SSN Number</th>
+						<th>Family Registration Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="family: ${familyList}">
+						<td th:text="${family.ownerName}" />
+						<td th:text="${family.flatNo}" />
+						<td th:text="${family.ssnNumber}" />
+						<td th:text="${family.entryDateTime}" />
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div><p><a th:href="@{/family/regform}" class="btn btn-primary">Back</a></p></div>
+	</div>
+
+</body>
+</html>
